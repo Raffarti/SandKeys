@@ -1,5 +1,5 @@
 #include "engine.h"
-#include "modifierlistener.h"
+#include "kbdstatelistener.h"
 #ifndef USE_XCB
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
