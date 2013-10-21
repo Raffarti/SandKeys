@@ -4,6 +4,7 @@ import QtQuick.Window 2.0
 
 ApplicationWindow {
     id: mainwindow
+    //X11BypassWindowManagerHint
     flags: "WindowDoesNotAcceptFocus|WindowStaysOnTopHint" //QtCreator report an invalid error there, just ignore it
     width: keyboard1.implicitWidth
     height: keyboard1.implicitHeight

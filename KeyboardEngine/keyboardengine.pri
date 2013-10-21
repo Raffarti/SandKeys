@@ -19,9 +19,7 @@ HEADERS += \
 CONFIG += use_x11
 use_xcb {
     LIBS += -lxcb -lxcb-xtest -lxcb-xkb -lxcb-keysyms
-}
-LIBS += -lX11 -lXtst
-use_x11 {
+} else {
     CONFIG += link_pkgconfig
     PKGCONFIG += x11 xtst
 }

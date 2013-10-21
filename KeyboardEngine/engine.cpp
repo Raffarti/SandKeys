@@ -1,5 +1,6 @@
 #include "engine.h"
 #include "kbdstatelistener.h"
+#include <QDebug>
 #ifndef USE_XCB
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
@@ -55,6 +56,8 @@ KeyboardEngine::KeyboardEngine(QQuickItem *parent):
     else if (status->locked_mods & Mod5Mask) modsState[AltGr] = Locked;
     else if (status->base_mods & Mod5Mask) modsState[AltGr] = Effective;
     else modsState[AltGr] = Unsetted;
+
+
 #endif
     qDebug("Accessing X done.");
 
@@ -110,7 +113,7 @@ QString KeyboardEngine::keySym(int keycode)
     KeySym keysym;
     XkbStatePtr status = new XkbStateRec;
     XkbGetState((Display *)dpy, XkbUseCoreKbd, status);
-    XkbLookupKeySym((Display *)dpy, keycode, status->base_mods|status->latched_mods|status->locked_mods, 0, &keysym);
+    XkbLookupKeySym((Display *)dpy, keycode, status->mods|(status->group<<13), 0, &keysym);
     return XKeysymToString(keysym);
 
 #endif
@@ -229,6 +232,7 @@ void KeyboardEngine::modEventRecived()
             }
     modsState = mstatus;
     refreshLayout();
+
 }
 
 
