@@ -56,6 +56,7 @@ KeyboardEngine::KeyboardEngine(QQuickItem *parent):
     else if (status->locked_mods & Mod5Mask) modsState[AltGr] = Locked;
     else if (status->base_mods & Mod5Mask) modsState[AltGr] = Effective;
     else modsState[AltGr] = Unsetted;
+    delete status;
 
 
 #endif
@@ -97,8 +98,17 @@ void KeyboardEngine::keyPress(int keycode, bool press)
     xcb_void_cookie_t cookie = xcb_test_fake_input_checked(conn,press?XCB_KEY_PRESS:XCB_KEY_RELEASE,keycode,XCB_CURRENT_TIME,0,0,0,0);
     xcb_request_check(conn, cookie);
 #else
+    XkbStatePtr status = new XkbStateRec;
+    XkbGetState((Display *)dpy, XkbUseCoreKbd, status);
+    KeySym keysym;
+    XkbLookupKeySym((Display *)dpy, keycode, status->base_mods|status->latched_mods|status->locked_mods, 0, &keysym);
+    int mods = XkbKeysymToModifiers((Display *)dpy, keysym);
+    if (mods && !press){
+        XkbLatchModifiers((Display *)dpy, XkbUseCoreKbd, status->latched_mods | mods, (mods ^ status->latched_mods) & ~status->locked_mods);
+    }
     XTestFakeKeyEvent((Display *)dpy, keycode, press, 0);
     XFlush((Display *)dpy);
+    delete status;
 
 #endif
 }
@@ -114,6 +124,7 @@ QString KeyboardEngine::keySym(int keycode)
     XkbStatePtr status = new XkbStateRec;
     XkbGetState((Display *)dpy, XkbUseCoreKbd, status);
     XkbLookupKeySym((Display *)dpy, keycode, status->mods|(status->group<<13), 0, &keysym);
+    delete status;
     return XKeysymToString(keysym);
 
 #endif
@@ -165,6 +176,7 @@ void KeyboardEngine::initializeRec(QQuickItem *item)
             if (mods & Mod5Mask)
                 registerModifier(item,AltGr);
         }
+        delete status;
     }
     foreach(QObject *obj, item->children()){
         QQuickItem *item = dynamic_cast<QQuickItem *>(obj);
@@ -215,6 +227,7 @@ void KeyboardEngine::modEventRecived()
     else if (status->locked_mods & Mod5Mask) mstatus[AltGr] = Locked;
     else if (status->base_mods & Mod5Mask) mstatus[AltGr] = Effective;
     else mstatus[AltGr] = Unsetted;
+    delete status;
 #endif
 
     for (int s = 0; s < NUM_MODS; s++)
