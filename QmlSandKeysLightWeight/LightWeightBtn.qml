@@ -30,11 +30,11 @@ Rectangle {
         anchors.top: parent.top
 
         onPressed:{
-            if (color === "#3c3c3c") btn.color = "black"
+            if (btn.color == "#3c3c3c") btn.color = "#000000"
             KE.KeyboardEngine.keyPress(keyCode, 1)
         }
         onReleased:{
-            if (color === "black")btn.color = "#3c3c3c"
+            if (btn.color == "#000000")btn.color = "#3c3c3c"
             KE.KeyboardEngine.keyPress(keyCode, 0)
         }
         onWidthChanged: text.font.pixelSize = textSize(text.text, width, height)
