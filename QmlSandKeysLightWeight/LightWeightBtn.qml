@@ -40,6 +40,7 @@ Rectangle {
         onWidthChanged: text.font.pixelSize = textSize(text.text, width, height)
         onHeightChanged: text.font.pixelSize = textSize(text.text, width, height)
         Text {
+            renderType: Text.NativeRendering
             id: text
             color: "#ffffff"
             text: KE.KeyboardEngine.keySym(keyCode)
