@@ -3,7 +3,6 @@ import com.raffarti.qmlcomponents 1.0 as KE
 
 Rectangle {
     id: background
-    radius: 0
     width: 18
     height: 18
     property int keyCode;

@@ -8,9 +8,8 @@ Rectangle {
     color: "#00000000"
     smooth: false
 
-    objectName: {
+    Component.onCompleted: {
         KE.KeyboardEngine.initialize(keyboard);
-        return objectName
     }
 
     Rectangle {
@@ -657,11 +656,6 @@ Rectangle {
             transformOrigin: Item.TopLeft
             anchors.left: parent.left
             anchors.leftMargin: 0
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(caps, KE.KeyboardEngine.CapsLock)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -845,11 +839,6 @@ Rectangle {
             keyCode: 50
             anchors.left: parent.left
             anchors.leftMargin: 0
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(lfsh, KE.KeyboardEngine.Shift)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -1002,11 +991,6 @@ Rectangle {
             anchors.leftMargin: 1
             anchors.verticalCenter: ab10.verticalCenter
             transformOrigin: Item.Left
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(rtsh, KE.KeyboardEngine.Shift)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -1020,11 +1004,6 @@ Rectangle {
 
             width: 27
             keyCode: 37
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(lctl, KE.KeyboardEngine.Ctrl)
-                return objectName
-            }*/
 
         }
 
@@ -1040,11 +1019,6 @@ Rectangle {
             anchors.left: lctl.right
             anchors.leftMargin: 1
             anchors.verticalCenter: lctl.verticalCenter
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(lwin, KE.KeyboardEngine.Meta)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -1059,11 +1033,6 @@ Rectangle {
             anchors.verticalCenter: lwin.verticalCenter
             transformOrigin: Item.Left
             keyCode: 64
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(lalt, KE.KeyboardEngine.Alt)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -1092,11 +1061,6 @@ Rectangle {
             anchors.leftMargin: 1
             anchors.verticalCenter: spce.verticalCenter
             keyCode: 108
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(ralt, KE.KeyboardEngine.AltGr)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -1111,11 +1075,6 @@ Rectangle {
             anchors.leftMargin: 1
             anchors.verticalCenter: ralt.verticalCenter
             keyCode: 134
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(rwin, KE.KeyboardEngine.Meta)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -1144,11 +1103,6 @@ Rectangle {
             anchors.leftMargin: 1
             anchors.verticalCenter: menu.verticalCenter
             transformOrigin: Item.Left
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(rctl, KE.KeyboardEngine.Ctrl)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -1300,11 +1254,6 @@ Rectangle {
 
             transformOrigin: Item.TopLeft
             keyCode: 77
-/*
-            objectName: {
-                KE.KeyboardEngine.registerModifier(nmlk, KE.KeyboardEngine.NumLock)
-                return objectName
-            }*/
         }
 
         LightWeightBtn {
@@ -1561,9 +1510,8 @@ Rectangle {
                     offAnimNumLock.start()
                 }
 
-                objectName: {
+                Component.onCompleted: {
                     KE.KeyboardEngine.registerModifier(num_lock,KE.KeyboardEngine.NumLock)
-                    return "NUM"
                 }
                 ColorAnimation on color{
                     id: lockAnimNumLock
@@ -1587,9 +1535,8 @@ Rectangle {
                     offAnimCapsLock.start()
                 }
 
-                objectName: {
+                Component.onCompleted: {
                     KE.KeyboardEngine.registerModifier(caps_lock,KE.KeyboardEngine.CapsLock)
-                    return "caps"
                 }
                 id: caps_lock
                 x: 32

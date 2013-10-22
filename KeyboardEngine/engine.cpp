@@ -131,6 +131,11 @@ void KeyboardEngine::registerKey(QQuickItem *item)
 
 void KeyboardEngine::initialize(QQuickItem *item)
 {
+    reset();
+    initializeRec(item);
+}
+void KeyboardEngine::initializeRec(QQuickItem *item)
+{
     if (item->metaObject()->indexOfProperty("keyCode") != -1){
         KeyCode keycode;
         KeySym keysym;
@@ -164,8 +169,14 @@ void KeyboardEngine::initialize(QQuickItem *item)
     foreach(QObject *obj, item->children()){
         QQuickItem *item = dynamic_cast<QQuickItem *>(obj);
         if (item)
-            initialize(item);
+            initializeRec(item);
     }
+}
+
+void KeyboardEngine::reset()
+{
+    modifierItems = QVector<QList<QQuickItem*> >(NUM_MODS);
+    keys.clear();
 }
 
 

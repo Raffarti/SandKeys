@@ -8,9 +8,11 @@ Rectangle {
     color: "#00000000"
     smooth: false
 
-    objectName: {
+    property bool initialized: false
+    Component.onCompleted: {
+        if (initialized) return
         KE.KeyboardEngine.initialize(keyboard);
-        return objectName
+        initialized = true
     }
 
     Rectangle {
@@ -658,9 +660,9 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: 0
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(caps, KE.KeyboardEngine.CapsLock)
-                return objectName
+
             }*/
         }
 
@@ -846,9 +848,9 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: 0
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(lfsh, KE.KeyboardEngine.Shift)
-                return objectName
+
             }*/
         }
 
@@ -1003,9 +1005,9 @@ Rectangle {
             anchors.verticalCenter: ab10.verticalCenter
             transformOrigin: Item.Left
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(rtsh, KE.KeyboardEngine.Shift)
-                return objectName
+
             }*/
         }
 
@@ -1021,9 +1023,9 @@ Rectangle {
             width: 27
             keyCode: 37
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(lctl, KE.KeyboardEngine.Ctrl)
-                return objectName
+
             }*/
 
         }
@@ -1041,9 +1043,9 @@ Rectangle {
             anchors.leftMargin: 1
             anchors.verticalCenter: lctl.verticalCenter
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(lwin, KE.KeyboardEngine.Meta)
-                return objectName
+
             }*/
         }
 
@@ -1060,9 +1062,9 @@ Rectangle {
             transformOrigin: Item.Left
             keyCode: 64
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(lalt, KE.KeyboardEngine.Alt)
-                return objectName
+
             }*/
         }
 
@@ -1093,9 +1095,9 @@ Rectangle {
             anchors.verticalCenter: spce.verticalCenter
             keyCode: 108
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(ralt, KE.KeyboardEngine.AltGr)
-                return objectName
+
             }*/
         }
 
@@ -1112,9 +1114,9 @@ Rectangle {
             anchors.verticalCenter: ralt.verticalCenter
             keyCode: 134
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(rwin, KE.KeyboardEngine.Meta)
-                return objectName
+
             }*/
         }
 
@@ -1145,9 +1147,9 @@ Rectangle {
             anchors.verticalCenter: menu.verticalCenter
             transformOrigin: Item.Left
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(rctl, KE.KeyboardEngine.Ctrl)
-                return objectName
+
             }*/
         }
 
@@ -1301,9 +1303,9 @@ Rectangle {
             transformOrigin: Item.TopLeft
             keyCode: 77
 /*
-            objectName: {
+            Component.onCompleted: {
                 KE.KeyboardEngine.registerModifier(nmlk, KE.KeyboardEngine.NumLock)
-                return objectName
+
             }*/
         }
 
@@ -1561,7 +1563,7 @@ Rectangle {
                     offAnimNumLock.start()
                 }
 
-                objectName: {
+                Component.onCompleted: {
                     KE.KeyboardEngine.registerModifier(num_lock,KE.KeyboardEngine.NumLock)
                     return "NUM"
                 }
@@ -1587,7 +1589,7 @@ Rectangle {
                     offAnimCapsLock.start()
                 }
 
-                objectName: {
+                Component.onCompleted: {
                     KE.KeyboardEngine.registerModifier(caps_lock,KE.KeyboardEngine.CapsLock)
                     return "caps"
                 }

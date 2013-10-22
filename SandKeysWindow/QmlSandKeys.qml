@@ -6,7 +6,7 @@ ApplicationWindow {
     id: mainwindow
     //X11BypassWindowManagerHint
     opacity: 0.75
- //   flags: "WindowDoesNotAcceptFocus|WindowStaysOnTopHint" //QtCreator report an invalid error there, just ignore it
+    flags: "WindowDoesNotAcceptFocus|WindowStaysOnTopHint" //QtCreator report an invalid error there, just ignore it
    // width: keyboard1.implicitWidth
   //  height: keyboard1.implicitHeight
 
@@ -29,7 +29,6 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
 
-        Component.onCompleted: setKeyboard("../QmlSandKeys/Keyboard.qml")
     }
 
     ComboBox {

@@ -40,6 +40,9 @@ public:
     static QObject *KeyboardEngine_singletontype_provider(QQmlEngine *engine, QJSEngine *scriptEngine);
 public slots:
     void modEventRecived();
+
+public slots:
+    void reset();
 signals:
     Q_SIGNAL void modifierLatched(int);
     Q_SIGNAL void modifierUnlatched(int);
@@ -64,6 +67,7 @@ private:
     void *dpy;
 
 #endif
+    void initializeRec(QQuickItem *item);
 };
 
 #endif // ENGINE_H
