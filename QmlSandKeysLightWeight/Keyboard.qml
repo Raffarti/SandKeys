@@ -26,7 +26,7 @@ Rectangle {
         property int normWidth: 18
         property int normHeight: 18
 
-        RectBtn {
+        LightWeightBtn {
             id: esc
 
             width: keyboard.normWidth
@@ -40,7 +40,7 @@ Rectangle {
             keyCode: 9
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk01
             y: 0
 
@@ -54,7 +54,7 @@ Rectangle {
             keyCode: 67
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk02
 
             width: keyboard.normWidth
@@ -68,7 +68,7 @@ Rectangle {
             keyCode: 68
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk03
 
             width: keyboard.normWidth
@@ -82,7 +82,7 @@ Rectangle {
             anchors.verticalCenter: fk02.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk04
 
             width: keyboard.normWidth
@@ -96,7 +96,7 @@ Rectangle {
             anchors.verticalCenter: fk03.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk05
 
             width: keyboard.normWidth
@@ -110,7 +110,7 @@ Rectangle {
             anchors.verticalCenter: fk04.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk06
 
             width: keyboard.normWidth
@@ -124,7 +124,7 @@ Rectangle {
             keyCode: 72
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk07
 
             width: keyboard.normWidth
@@ -138,7 +138,7 @@ Rectangle {
             anchors.verticalCenter: fk06.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk08
 
             width: keyboard.normWidth
@@ -152,7 +152,7 @@ Rectangle {
             anchors.verticalCenter: fk07.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk09
 
             width: keyboard.normWidth
@@ -166,7 +166,7 @@ Rectangle {
             anchors.verticalCenter: fk08.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk10
 
             width: keyboard.normWidth
@@ -180,7 +180,7 @@ Rectangle {
             keyCode: 76
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk11
 
             width: keyboard.normWidth
@@ -194,7 +194,7 @@ Rectangle {
             keyCode: 95
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: fk12
 
             width: keyboard.normWidth
@@ -208,7 +208,7 @@ Rectangle {
             anchors.verticalCenter: fk11.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: prsc
 
             width: keyboard.normWidth
@@ -222,7 +222,7 @@ Rectangle {
             anchors.verticalCenter: fk12.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: sclk
 
             width: keyboard.normWidth
@@ -236,7 +236,7 @@ Rectangle {
             anchors.verticalCenter: prsc.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: paus
 
             width: keyboard.normWidth
@@ -250,7 +250,7 @@ Rectangle {
             anchors.verticalCenter: sclk.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: tlde
 
             width: keyboard.normWidth
@@ -264,7 +264,7 @@ Rectangle {
             anchors.topMargin: 5
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae01
 
             width: keyboard.normWidth
@@ -279,7 +279,7 @@ Rectangle {
         }
 
 
-        RectBtn {
+        LightWeightBtn {
             id: ae02
 
             width: keyboard.normWidth
@@ -293,7 +293,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae03
 
             width: keyboard.normWidth
@@ -307,7 +307,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae04
 
             width: keyboard.normWidth
@@ -321,7 +321,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae05
 
             width: keyboard.normWidth
@@ -335,7 +335,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae06
 
             width: keyboard.normWidth
@@ -349,7 +349,7 @@ Rectangle {
             keyCode: 15
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae07
 
             width: keyboard.normWidth
@@ -362,7 +362,7 @@ Rectangle {
             anchors.verticalCenter: ae06.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae08
 
             width: keyboard.normWidth
@@ -376,7 +376,7 @@ Rectangle {
             keyCode: 17
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae09
 
             width: keyboard.normWidth
@@ -389,7 +389,7 @@ Rectangle {
             anchors.verticalCenter: ae08.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae10
 
             width: keyboard.normWidth
@@ -403,7 +403,7 @@ Rectangle {
             keyCode: 19
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae11
 
             width: keyboard.normWidth
@@ -417,7 +417,7 @@ Rectangle {
             anchors.verticalCenter: ae10.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ae12
 
             width: keyboard.normWidth
@@ -431,7 +431,7 @@ Rectangle {
             keyCode: 21
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: bksp
 
             width: 38
@@ -445,7 +445,7 @@ Rectangle {
             anchors.verticalCenter: ae12.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: tab
 
             width: 28
@@ -462,7 +462,7 @@ Rectangle {
         }
 
 
-        RectBtn {
+        LightWeightBtn {
             id: ad01
 
             width: keyboard.normWidth
@@ -477,7 +477,7 @@ Rectangle {
             anchors.verticalCenter: tab.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad02
 
             width: keyboard.normWidth
@@ -491,7 +491,7 @@ Rectangle {
             keyCode: 25
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad03
 
             width: keyboard.normWidth
@@ -505,7 +505,7 @@ Rectangle {
             anchors.verticalCenter: ad02.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad04
 
             width: keyboard.normWidth
@@ -519,7 +519,7 @@ Rectangle {
             anchors.verticalCenter: ad03.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad05
 
             width: keyboard.normWidth
@@ -533,7 +533,7 @@ Rectangle {
             anchors.verticalCenter: ad04.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad06
 
             width: keyboard.normWidth
@@ -547,7 +547,7 @@ Rectangle {
             keyCode: 29
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad07
 
             width: keyboard.normWidth
@@ -561,7 +561,7 @@ Rectangle {
             anchors.verticalCenter: ad06.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad08
 
             width: keyboard.normWidth
@@ -575,7 +575,7 @@ Rectangle {
             anchors.verticalCenter: ad07.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad09
 
             width: keyboard.normWidth
@@ -589,7 +589,7 @@ Rectangle {
             keyCode: 32
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad10
 
             width: keyboard.normWidth
@@ -603,7 +603,7 @@ Rectangle {
             keyCode: 33
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad11
 
             width: keyboard.normWidth
@@ -617,7 +617,7 @@ Rectangle {
             anchors.leftMargin: 1
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ad12
 
             width: keyboard.normWidth
@@ -631,7 +631,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: bksl
 
             width: 28
@@ -645,7 +645,7 @@ Rectangle {
             keyCode: 51
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: caps
 
             width: 33
@@ -664,7 +664,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac01
 
             width: keyboard.normWidth
@@ -678,7 +678,7 @@ Rectangle {
             anchors.verticalCenter: caps.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac02
 
             width: keyboard.normWidth
@@ -692,7 +692,7 @@ Rectangle {
             keyCode: 39
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac03
 
             width: keyboard.normWidth
@@ -706,7 +706,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac04
 
             width: keyboard.normWidth
@@ -721,7 +721,7 @@ Rectangle {
             keyCode: 41
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac05
 
             width: keyboard.normWidth
@@ -735,7 +735,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac06
 
             width: keyboard.normWidth
@@ -749,7 +749,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac07
 
             width: keyboard.normWidth
@@ -764,7 +764,7 @@ Rectangle {
             anchors.verticalCenter: ac06.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac08
 
             width: keyboard.normWidth
@@ -778,7 +778,7 @@ Rectangle {
             anchors.verticalCenter: ac07.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac09
 
             width: keyboard.normWidth
@@ -792,7 +792,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac10
 
             width: keyboard.normWidth
@@ -807,7 +807,7 @@ Rectangle {
             keyCode: 47
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ac11
 
             width: keyboard.normWidth
@@ -821,7 +821,7 @@ Rectangle {
             anchors.verticalCenter: ac10.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: rtrn
 
             width: 42
@@ -835,7 +835,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: lfsh
             width: 42
             height: keyboard.normHeight
@@ -852,7 +852,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab01
             y: 119
             width: keyboard.normWidth
@@ -864,7 +864,7 @@ Rectangle {
             anchors.verticalCenter: lfsh.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab02
 
             width: keyboard.normWidth
@@ -878,7 +878,7 @@ Rectangle {
             anchors.verticalCenter: ab01.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab03
 
             width: keyboard.normWidth
@@ -892,7 +892,7 @@ Rectangle {
             keyCode: 54
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab04
 
             width: keyboard.normWidth
@@ -906,7 +906,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab05
 
             width: keyboard.normWidth
@@ -920,7 +920,7 @@ Rectangle {
             anchors.verticalCenter: ab04.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab06
 
             width: keyboard.normWidth
@@ -934,7 +934,7 @@ Rectangle {
             keyCode: 57
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab07
 
             width: keyboard.normWidth
@@ -948,7 +948,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab08
 
             width: keyboard.normWidth
@@ -962,7 +962,7 @@ Rectangle {
             anchors.verticalCenter: ab07.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab09
 
             width: keyboard.normWidth
@@ -976,7 +976,7 @@ Rectangle {
             anchors.verticalCenter: ab08.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ab10
 
             width: keyboard.normWidth
@@ -990,7 +990,7 @@ Rectangle {
             keyCode: 61
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: rtsh
 
             height: keyboard.normHeight
@@ -1009,7 +1009,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: lctl
 
             height: keyboard.normHeight
@@ -1028,7 +1028,7 @@ Rectangle {
 
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: lwin
 
             height: keyboard.normHeight
@@ -1047,7 +1047,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: lalt
 
             height: keyboard.normHeight
@@ -1066,7 +1066,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: spce
 
             height: keyboard.normHeight
@@ -1080,7 +1080,7 @@ Rectangle {
             keyCode: 65
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ralt
 
             height: keyboard.normHeight
@@ -1099,7 +1099,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: rwin
 
             height: keyboard.normHeight
@@ -1118,7 +1118,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: menu
 
             height: keyboard.normHeight
@@ -1132,7 +1132,7 @@ Rectangle {
             anchors.verticalCenter: rwin.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: rctl
 
             height: keyboard.normHeight
@@ -1151,7 +1151,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: ins
             x: 312
 
@@ -1165,7 +1165,7 @@ Rectangle {
             keyCode: 118
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: home
 
             width: keyboard.normWidth
@@ -1179,7 +1179,7 @@ Rectangle {
             anchors.verticalCenter: ins.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: pgup
 
             width: keyboard.normWidth
@@ -1193,7 +1193,7 @@ Rectangle {
             anchors.verticalCenter: home.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: dele
             x: 312
 
@@ -1207,7 +1207,7 @@ Rectangle {
             transformOrigin: Item.TopLeft
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: end
 
             width: keyboard.normWidth
@@ -1221,7 +1221,7 @@ Rectangle {
             anchors.verticalCenter: dele.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: pgdn
 
             width: keyboard.normWidth
@@ -1234,7 +1234,7 @@ Rectangle {
             anchors.verticalCenter: end.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: up
 
             width: keyboard.normWidth
@@ -1248,7 +1248,7 @@ Rectangle {
             anchors.leftMargin: 1
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: left_
             x: 312
 
@@ -1261,7 +1261,7 @@ Rectangle {
             anchors.topMargin: 58
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: down
 
             width: keyboard.normWidth
@@ -1274,7 +1274,7 @@ Rectangle {
             anchors.verticalCenter: left_.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: rght
 
             width: keyboard.normWidth
@@ -1288,7 +1288,7 @@ Rectangle {
             anchors.verticalCenter: down.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: nmlk
             x: 376
             y: 62
@@ -1307,7 +1307,7 @@ Rectangle {
             }*/
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kpdv
 
             width: keyboard.normWidth
@@ -1321,7 +1321,7 @@ Rectangle {
             anchors.verticalCenter: nmlk.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kpmu
 
             width: keyboard.normWidth
@@ -1335,7 +1335,7 @@ Rectangle {
             anchors.verticalCenter: kpdv.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kpsu
 
             width: keyboard.normWidth
@@ -1349,7 +1349,7 @@ Rectangle {
             anchors.verticalCenter: kpmu.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp7
             x: 376
             y: 86
@@ -1363,7 +1363,7 @@ Rectangle {
             transformOrigin: Item.TopLeft
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp8
 
             width: keyboard.normWidth
@@ -1377,7 +1377,7 @@ Rectangle {
             anchors.verticalCenter: kp7.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp9
 
             width: keyboard.normWidth
@@ -1392,7 +1392,7 @@ Rectangle {
             anchors.verticalCenter: kp8.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kpad
 
             width: keyboard.normWidth
@@ -1406,7 +1406,7 @@ Rectangle {
             anchors.leftMargin: 1
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp4
             x: 376
             y: 100
@@ -1420,7 +1420,7 @@ Rectangle {
             keyCode: 83
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp5
 
             width: keyboard.normWidth
@@ -1434,7 +1434,7 @@ Rectangle {
             anchors.verticalCenter: kp4.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp6
 
             width: keyboard.normWidth
@@ -1448,7 +1448,7 @@ Rectangle {
             anchors.verticalCenter: kp5.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp1
             x: 376
             y: 119
@@ -1464,7 +1464,7 @@ Rectangle {
             transformOrigin: Item.Left
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp2
 
             width: keyboard.normWidth
@@ -1478,7 +1478,7 @@ Rectangle {
             anchors.verticalCenter: kp1.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp3
 
             width: keyboard.normWidth
@@ -1492,7 +1492,7 @@ Rectangle {
             anchors.verticalCenter: kp2.verticalCenter
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kpen
 
             width: keyboard.normWidth
@@ -1506,7 +1506,7 @@ Rectangle {
             anchors.leftMargin: 1
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kp0
             y: 138
 
@@ -1520,7 +1520,7 @@ Rectangle {
             keyCode: 90
         }
 
-        RectBtn {
+        LightWeightBtn {
             id: kpdl
 
             width: keyboard.normWidth

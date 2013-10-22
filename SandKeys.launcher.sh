@@ -1,3 +1,2 @@
 #!/bin/sh
-cd QmlSandKeys
-qmlscene -I ../ QmlSandKeys.qml
+qmlscene -I . SandKeysWindow/QmlSandKeys.qml

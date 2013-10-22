@@ -6,10 +6,6 @@ Rectangle {
     radius: 0
     width: 18
     height: 18
-    property string key_text_q1;
-    property string key_text_q2;
-    property string key_text_q3;
-    property string key_text_q4;
     property int keyCode;
     color: "#000000"
 
