@@ -3,6 +3,10 @@ TARGET = com/raffarti/qmlcomponents/KeyboardEngine
 QT += qml quick
 CONFIG += qt plugin
 
+folder_04.source = KeyboardEngine/symbols
+folder_04.target = $$DESTDIR
+DEPLOYMENTFOLDERS += folder_04
+
 TARGET += $$qtLibraryTarget($$TARGET)
 uri = com.raffarti.qmlcomponents
 
@@ -18,7 +22,9 @@ HEADERS += \
     $$PWD/kbdstatelistener.h
 CONFIG += use_x11
 use_xcb {
-    LIBS += -lxcb -lxcb-xtest -lxcb-xkb -lxcb-keysyms
+    CONFIG += link_pkgconfig
+    PKGCONFIG += xcb xcb-xtest xcb-xkb xcb-keysyms
+    DEFINES += USE_XCB
 } else {
     CONFIG += link_pkgconfig
     PKGCONFIG += x11 xtst
@@ -26,7 +32,8 @@ use_xcb {
 
 INCLUDEPATH += $$PWD
 
-OTHER_FILES = $$PWD/qmldir
+OTHER_FILES = $$PWD/qmldir \
+    KeyboardEngine/symbols/default.symbols
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD)) {
     copy_qmldir.target = $$OUT_PWD/qmldir

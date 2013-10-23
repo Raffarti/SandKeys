@@ -6,7 +6,7 @@ folder_02.source = QmlSandKeysLightWeight/
 folder_02.target = $$DESTDIR/
 folder_03.source = SandKeysWindow/
 folder_03.target = $$DESTDIR
-DEPLOYMENTFOLDERS = folder_01 folder_02 folder_03
+DEPLOYMENTFOLDERS = folder_01 folder_02 folder_03 folder_04
 
 
 qmlfilecopy.commands = @echo Copying plugin data...\

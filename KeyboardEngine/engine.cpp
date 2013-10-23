@@ -20,12 +20,44 @@ KeyboardEngine::KeyboardEngine(QQuickItem *parent):
     KbdStateListener *statel;
 
     qDebug("Accessing X...");
+    modsState = QVector<char>(NUM_MODS);
 #ifdef USE_XCB
     conn = xcb_connect(0,0);
+    statel = new KbdStateListener(conn);
+    xcb_xkb_get_state_cookie_t ck = xcb_xkb_get_state_unchecked(conn, XCB_XKB_ID_USE_CORE_KBD);
+ /*   xcb_xkb_get_state_reply_t *status = xcb_xkb_get_state_reply(conn,ck,0); //return 0 with error code 10, whatever it means
+    if (status->latchedMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Effective;
+    else modsState[Shift] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Effective;
+    else modsState[Ctrl] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_1) modsState[Alt] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_1) modsState[Alt] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_1) modsState[Alt] = Effective;
+    else modsState[Alt] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_2) modsState[NumLock] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_2) modsState[NumLock] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_2) modsState[NumLock] = Effective;
+    else modsState[NumLock] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Effective;
+    else modsState[CapsLock] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_3) modsState[Meta] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_3) modsState[Meta] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_3) modsState[Meta] = Effective;
+    else modsState[AltGr] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_5) modsState[AltGr] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_5) modsState[AltGr] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_5) modsState[AltGr] = Effective;
+    else modsState[AltGr] = Unsetted;
+    delete status;*/
 #else
     dpy = XOpenDisplay(0);
     statel = new KbdStateListener(dpy);
-    modsState = QVector<char>(NUM_MODS);
     XkbStatePtr status = new XkbStateRec;
     XkbGetState((Display *)dpy, XkbUseCoreKbd, status);
     if (status->latched_mods & ShiftMask) modsState[Shift] = Latched;
@@ -65,6 +97,38 @@ KeyboardEngine::KeyboardEngine(QQuickItem *parent):
     connect(statel, SIGNAL(eventRecived()), this, SLOT(modEventRecived()));
     statel->start();
 
+    qDebug("Looking for keysym layout symbols...");
+
+    QFileInfoList files = QDir("symbols").entryInfoList(QStringList("*.symbols"),QDir::Files);
+    foreach (QFileInfo fi, files) {
+        qDebug() << "Found:" << fi.absoluteFilePath();
+        QFile f(fi.absoluteFilePath());
+        f.open(QFile::ReadOnly);
+        while(!f.atEnd()){
+            QString l = f.readLine().trimmed();
+            if (l.startsWith('#')) continue;
+            QStringList p = l.split(" ",QString::SkipEmptyParts);
+            if (p.isEmpty()) continue;
+            int keyid = p[0].toInt();
+            if (!keyid) continue;
+            if (symbolMap.contains(keyid)) qDebug() << "WARNING: "<<keyid<<"have multiple definitions";
+            switch(p.length()){
+            case 0:
+                continue;
+            case 1:
+                symbolMap.insert(keyid,"");
+                break;
+            case 2:
+                symbolMap.insert(keyid,p[1]);
+                break;
+            case 3:
+                p.pop_front();
+                symbolMap.insert(keyid,p.join(" "));
+                break;
+            }
+        }
+    }
+    qDebug("Looking for keysym layout symbols done.");
 }
 
 QObject *KeyboardEngine::KeyboardEngine_singletontype_provider(QQmlEngine *engine, QJSEngine *scriptEngine)
@@ -95,8 +159,12 @@ void KeyboardEngine::refreshLayout()
 void KeyboardEngine::keyPress(int keycode, bool press)
 {
 #ifdef USE_XCB
-    xcb_void_cookie_t cookie = xcb_test_fake_input_checked(conn,press?XCB_KEY_PRESS:XCB_KEY_RELEASE,keycode,XCB_CURRENT_TIME,0,0,0,0);
-    xcb_request_check(conn, cookie);
+   /* xcb_xkb_get_state_cookie_t ck = xcb_xkb_get_state(conn, XCB_XKB_ID_USE_CORE_KBD);
+    xcb_xkb_get_state_reply_t *status = xcb_xkb_get_state_reply(conn,ck,0);
+    xcb_key_symbols_t *syms;
+    qDebug() << xcb_key_symbols_get_keysym(syms, keycode, status->group);*/
+    xcb_test_fake_input(conn,press?XCB_KEY_PRESS:XCB_KEY_RELEASE,keycode,XCB_CURRENT_TIME,0,0,0,XCB_XKB_ID_USE_CORE_KBD);
+    xcb_flush(conn);
 #else
     XkbStatePtr status = new XkbStateRec;
     XkbGetState((Display *)dpy, XkbUseCoreKbd, status);
@@ -117,16 +185,20 @@ QString KeyboardEngine::keySym(int keycode)
 {
 #ifdef USE_XCB
     xcb_key_symbols_t *ptr = xcb_key_symbols_alloc(conn);
-    xcb_keysym_t sym = xcb_key_symbols_get_keysym(ptr,keycode, 0);
-    return QString::number(sym);
+    xcb_keysym_t keysym = xcb_key_symbols_get_keysym(ptr,keycode, 0);
 #else
     KeySym keysym;
     XkbStatePtr status = new XkbStateRec;
     XkbGetState((Display *)dpy, XkbUseCoreKbd, status);
     XkbLookupKeySym((Display *)dpy, keycode, status->mods|(status->group<<13), 0, &keysym);
     delete status;
-    return XKeysymToString(keysym);
 
+#endif
+    if (symbolMap.contains(keysym)) return symbolMap[keysym];
+#ifdef USE_XCB
+    else return QString::number(keysym);
+#else
+    return XKeysymToString(keysym);
 #endif
 }
 
@@ -148,13 +220,21 @@ void KeyboardEngine::initialize(QQuickItem *item)
 void KeyboardEngine::initializeRec(QQuickItem *item)
 {
     if (item->metaObject()->indexOfProperty("keyCode") != -1){
+#ifdef USE_XCB
+        char keycode;
+        int keysym;
+#else
         KeyCode keycode;
         KeySym keysym;
-
+#endif
         keycode = item->property("keyCode").toInt();
 
         registerKey(item);
 
+#ifdef USE_XCB
+        xcb_xkb_get_state_cookie_t ck = xcb_xkb_get_state(conn, XCB_XKB_ID_USE_CORE_KBD);
+        xcb_xkb_get_state_reply_t *status = xcb_xkb_get_state_reply(conn,ck,0);
+#else
         XkbStatePtr status = new XkbStateRec;
         XkbGetState((Display *)dpy, XkbUseCoreKbd, status);
         XkbLookupKeySym((Display *)dpy, keycode, status->base_mods|status->latched_mods|status->locked_mods, 0, &keysym);
@@ -177,6 +257,7 @@ void KeyboardEngine::initializeRec(QQuickItem *item)
                 registerModifier(item,AltGr);
         }
         delete status;
+#endif
     }
     foreach(QObject *obj, item->children()){
         QQuickItem *item = dynamic_cast<QQuickItem *>(obj);
@@ -196,6 +277,37 @@ void KeyboardEngine::modEventRecived()
 {
     QVector<char> mstatus(NUM_MODS);
 #ifdef USE_XCB
+    xcb_xkb_get_state_cookie_t ck = xcb_xkb_get_state(conn, XCB_XKB_ID_USE_CORE_KBD);
+    xcb_xkb_get_state_reply_t *status = xcb_xkb_get_state_reply(conn,ck,0);
+    if (status->latchedMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Effective;
+    else modsState[Shift] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Effective;
+    else modsState[Ctrl] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_1) modsState[Alt] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_1) modsState[Alt] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_1) modsState[Alt] = Effective;
+    else modsState[Alt] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_2) modsState[NumLock] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_2) modsState[NumLock] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_2) modsState[NumLock] = Effective;
+    else modsState[NumLock] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Effective;
+    else modsState[CapsLock] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_3) modsState[Meta] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_3) modsState[Meta] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_3) modsState[Meta] = Effective;
+    else modsState[AltGr] = Unsetted;
+    if (status->latchedMods & XCB_MOD_MASK_5) modsState[AltGr] = Latched;
+    else if (status->lockedMods & XCB_MOD_MASK_5) modsState[AltGr] = Locked;
+    else if (status->baseMods & XCB_MOD_MASK_5) modsState[AltGr] = Effective;
+    else modsState[AltGr] = Unsetted;
+    delete status;
 #else
     XkbStatePtr status = new XkbStateRec;
     XkbGetState((Display *)dpy, XkbUseCoreKbd, status);

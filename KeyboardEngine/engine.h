@@ -20,6 +20,8 @@
 
 #define NUM_MODS 7
 #include <QQuickItem>
+#include <QHash>
+#include <QDir>
 
 class KeyboardEngine : public QQuickItem
 {
@@ -51,9 +53,11 @@ signals:
     Q_SIGNAL void modifierEffective(int);
     Q_SIGNAL void modifierUneffective(int);
 private:
+
     QVector<QList<QQuickItem*> > modifierItems;
     QList<QQuickItem*> keys;
     static KeyboardEngine *singleton;
+    QHash<int, QString> symbolMap;
 
     enum ModState {Unsetted, Effective, Latched, Locked};
 
