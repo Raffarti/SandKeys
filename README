@@ -1,0 +1,13 @@
+WARNING: This project installs itself quite roughly, it works good for Fedora, install paths are:
+/usr/share/SandKeys for Symbol files and Qt4Loader files
+/usr/lib64/qt5/qml/ for Qt5 import needed by QmlLoader
+/usr/bin/ for sandkeys-qt4 and sandkeys-qt5
+
+plugin and themes are installed by qmake in the default import path.
+
+KNOWN PROBLEMS:
+Latched modifier will be consumed by any mouse event created through XEvent and XTest
+In Qt5 build, mouse focus can be stolen causing a key release event to be lost (e.g. Alt+Tab would result in Tab pressed until clicked again, print screen with ksnapshot (kde)... well... just don't try it at home)
+Qt5 rendering is quiet heavy.
+
+Qt4 build is strongly suggested.
