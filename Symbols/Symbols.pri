@@ -1,7 +1,7 @@
-symbols.files = default.symbols
+symbols.files = $$PWD/default.symbols
 symbols.path = /usr/share/SandKeys/Symbols
 
 INSTALLS += symbols
-OTHER_FILES += $$PWD/$$symbols.files
+OTHER_FILES += $$symbols.files
 
 
