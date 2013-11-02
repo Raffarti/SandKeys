@@ -15,7 +15,7 @@ public:
 #else
 #include <QDeclarativeExtensionPlugin>
 
-class Untitled6Plugin : public QDeclarativeExtensionPlugin
+class KeyboardEnginePlugin : public QDeclarativeExtensionPlugin
 {
     Q_OBJECT
 #if QT_VERSION >= 0x050000

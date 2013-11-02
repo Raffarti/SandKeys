@@ -1,3 +1,2 @@
 module sandkeys.plugin
 plugin KeyboardEngine
-BlackKeyboard 1.0 SandKeys/QmlSandKeys/Keyboard.qml
