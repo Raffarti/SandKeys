@@ -32,14 +32,14 @@ uri = sandkeys.plugin
 
 # Input
 SOURCES += \
-    qmlkeyboardengine_plugin.cpp \
     engine.cpp \
-    kbdstatelistener.cpp
+    kbdstatelistener.cpp \
+    keyboardengine_plugin.cpp
 
 HEADERS += \
-    qmlkeyboardengine_plugin.h \
     engine.h \
-    kbdstatelistener.h
+    kbdstatelistener.h \
+    keyboardengine_plugin.h
 
 OTHER_FILES = qmldir
 

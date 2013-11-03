@@ -1,4 +1,4 @@
-#include "qmlkeyboardengine_plugin.h"
+#include "keyboardengine_plugin.h"
 #include "engine.h"
 #include "kbdstatelistener.h"
 
@@ -6,7 +6,7 @@
 #include <qqml.h>
 
 
-void QmlKeyboardEnginePlugin::registerTypes(const char *uri)
+void KeyboardEnginePlugin::registerTypes(const char *uri)
 {
     //@uri sandkeys.plugin
     qmlRegisterSingletonType<KeyboardEngine>(uri, 1, 0, "KeyboardEngine",KeyboardEngine::KeyboardEngine_singletontype_provider);

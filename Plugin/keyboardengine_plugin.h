@@ -4,7 +4,7 @@
 #ifdef USE_QT5
 #include <QQmlExtensionPlugin>
 
-class QmlKeyboardEnginePlugin : public QQmlExtensionPlugin
+class KeyboardEnginePlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
