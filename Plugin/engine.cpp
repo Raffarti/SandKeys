@@ -5,8 +5,8 @@
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
 #include <X11/extensions/XTest.h>
-#include <xkbcommon/xkbcommon.h>
 #endif
+#include <xkbcommon/xkbcommon.h>
 
 KeyboardEngine *KeyboardEngine::singleton = 0;
 KeyboardEngine::KeyboardEngine(PARENT_TYPE *parent):
@@ -216,8 +216,17 @@ QString KeyboardEngine::keySym(int keycode)
 
 #endif
     if (symbolMap.contains(keysym)) return symbolMap[keysym];
+    int s = 1;
+    char *b = new char[s];
+    int ret = xkb_keysym_to_utf8(keysym, b, s);
+    while (ret == -1 && s < 32){
+        delete b;
+        b = new char[++s];
+        ret = xkb_keysym_to_utf8(keysym, b, s);
+    }
+    if (ret > 0) return QString(b);
 #ifdef USE_XCB
-    else return QString::number(keysym);
+    return QString::number(keysym);
 #else
     return XKeysymToString(keysym);
 #endif

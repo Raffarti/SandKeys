@@ -18,12 +18,13 @@ use_qt5 {
     CONFIG += qt plugin
 }
 
+CONFIG += link_pkgconfig
+PKGCONFIG += xkbcommon
+
 use_xcb {
-    CONFIG += link_pkgconfig
     PKGCONFIG += xcb xcb-xtest xcb-xkb xcb-keysyms
     DEFINES += USE_XCB
 } else {
-    CONFIG += link_pkgconfig
     PKGCONFIG += x11 xtst
 }
 
