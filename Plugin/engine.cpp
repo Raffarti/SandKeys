@@ -215,7 +215,7 @@ QString KeyboardEngine::keySym(int keycode)
     delete status;
 
 #endif
-    if (symbolMap.contains(keysym)) return symbolMap[keysym];
+   // if (symbolMap.contains(keysym)) return symbolMap[keysym];
     int s = 1;
     char *b = new char[s];
     int ret = xkb_keysym_to_utf8(keysym, b, s);
@@ -224,7 +224,12 @@ QString KeyboardEngine::keySym(int keycode)
         b = new char[++s];
         ret = xkb_keysym_to_utf8(keysym, b, s);
     }
-    if (ret > 0) return QString(b);
+    if (ret > 0)
+#ifdef USE_QT5
+        return QString(b);
+#else
+        return QString::fromUtf8(b);
+#endif
 #ifdef USE_XCB
     return QString::number(keysym);
 #else
