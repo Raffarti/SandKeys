@@ -156,6 +156,7 @@ KeyboardEngine::~KeyboardEngine()
 #ifdef USE_XCB
     xcb_disconnect(conn);
 #else
+    if (singleton != this) return;
     XCloseDisplay((Display *)dpy);
 #endif
 }
@@ -215,7 +216,7 @@ QString KeyboardEngine::keySym(int keycode)
     delete status;
 
 #endif
-   // if (symbolMap.contains(keysym)) return symbolMap[keysym];
+    if (symbolMap.contains(keysym)) return symbolMap[keysym];
     int s = 1;
     char *b = new char[s];
     int ret = xkb_keysym_to_utf8(keysym, b, s);
