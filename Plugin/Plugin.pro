@@ -21,11 +21,20 @@ use_qt5 {
 CONFIG += link_pkgconfig
 PKGCONFIG += xkbcommon
 
-use_xcb {
-    PKGCONFIG += xcb xcb-xtest xcb-xkb xcb-keysyms
-    DEFINES += USE_XCB
+use_wl {
+    PKGCONFIG += wayland-client
+    DEFINES += USE_WL
+message("USE_WL")
 } else {
+    use_xcb {
+        PKGCONFIG += xcb xcb-xtest xcb-xkb xcb-keysyms
+        DEFINES += USE_XCB
+message("USE_XCB")
+    }  else {
     PKGCONFIG += x11 xtst
+    DEFINES += USE_X11
+message("USE_X11")
+    }
 }
 
 TARGET = $$qtLibraryTarget($$TARGET)
@@ -35,12 +44,22 @@ uri = sandkeys.plugin
 SOURCES += \
     engine.cpp \
     kbdstatelistener.cpp \
-    keyboardengine_plugin.cpp
+    keyboardengine_plugin.cpp \
+    xcbplatform.cpp \
+    x11platform.cpp \
+    autorepeater.cpp \
+    wlplatform.cpp
 
 HEADERS += \
     engine.h \
     kbdstatelistener.h \
-    keyboardengine_plugin.h
+    keyboardengine_plugin.h \
+    inputplatform.h \
+    types.h \
+    xcbplatform.h \
+    x11platform.h \
+    autorepeater.h \
+    wlplatform.h
 
 OTHER_FILES = qmldir
 

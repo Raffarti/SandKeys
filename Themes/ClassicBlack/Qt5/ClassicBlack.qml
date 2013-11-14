@@ -1590,7 +1590,7 @@ Rectangle {
                 }
 
                 Component.onCompleted: {
-                    KE.KeyboardEngine.registerModifier(caps_lock,KE.KeyboardEngine.CapsLock)
+                    KE.KeyboardEngine.registerModifier(caps_lock,KE.CapsLock)
                     return "caps"
                 }
                 id: caps_lock

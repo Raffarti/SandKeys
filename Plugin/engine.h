@@ -1,24 +1,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#ifdef USE_XCB
-
-#define xcb_key_symbols_alloc xcb_key_symbols_alloc_broken
-#include <xcb/xcb.h>
-#undef xcb_key_symbols_alloc
-#include <xcb/xtest.h>
-#define explicit explicit_
-#include <xcb/xkb.h>
-#undef explicit
-#include <xcb/xcb_keysyms.h>
-
-#else
-
-
-
-#endif
-
-#define NUM_MODS 7
 #ifdef USE_QT5
 #include <QQuickItem>
 #else
@@ -26,6 +8,9 @@
 #endif
 #include <QHash>
 #include <QDir>
+#include <QTimer>
+#include "types.h"
+#include "inputplatform.h"
 
 class KeyboardEngine : public PARENT_TYPE
 {
@@ -33,7 +18,6 @@ class KeyboardEngine : public PARENT_TYPE
     Q_DISABLE_COPY(KeyboardEngine)
     Q_ENUMS(Mods)
 public:
-    enum Mods {Shift, Ctrl, Alt, AltGr, NumLock, CapsLock, Meta};
     KeyboardEngine(PARENT_TYPE *parent = 0);
     ~KeyboardEngine();
 
@@ -71,19 +55,9 @@ private:
     static KeyboardEngine *singleton;
     QHash<int, QString> symbolMap;
 
-    enum ModState {Unsetted, Effective, Latched, Locked};
+    ModsState modsState;
+    InputPlatform *platform;
 
-    QVector<char> modsState;
-
-#ifdef USE_XCB
-
-    xcb_connection_t *conn;
-
-#else
-
-    void *dpy;
-
-#endif
     void initializeRec(ITEM_TYPE *item);
 };
 

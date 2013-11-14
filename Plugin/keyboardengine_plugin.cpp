@@ -4,6 +4,7 @@
 
 #ifdef USE_QT5
 #include <qqml.h>
+#include "types.h"
 
 
 void KeyboardEnginePlugin::registerTypes(const char *uri)
@@ -11,6 +12,7 @@ void KeyboardEnginePlugin::registerTypes(const char *uri)
     //@uri sandkeys.plugin
     qmlRegisterSingletonType<KeyboardEngine>(uri, 1, 0, "KeyboardEngine",KeyboardEngine::KeyboardEngine_singletontype_provider);
     qmlRegisterType<KeyboardEngine>(uri, 1, 0, "KeyboardEngine"); //just here to trick a Qt-Creator bug. *Should* be harmless.
+
 }
 #else
 #include <qdeclarative.h>
