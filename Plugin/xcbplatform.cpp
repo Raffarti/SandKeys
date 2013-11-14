@@ -129,7 +129,7 @@ bool XcbPlatform::isModifier(char keycode, Mods mod)
 
 QList<Mods> XcbPlatform::modList(char keycode)
 {
-    return QList<Mods>
+    return QList<Mods>();
 }
 
 #endif //USE_XCB

@@ -21,7 +21,6 @@ void WLPlatform::disconnect()
 
 void WLPlatform::sendEvent(char keycode, bool press)
 {
-    wl_keyboard_send_key();
 }
 
 void WLPlatform::setState(Mods mod, ModState state)
