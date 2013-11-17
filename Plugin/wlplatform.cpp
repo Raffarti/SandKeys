@@ -65,7 +65,7 @@ QString WLPlatform::keysymToString(long keysym)
 
 QList<Mods> WLPlatform::modList(char keycode)
 {
-    return QList<Mods>;
+    return QList<Mods>();
 }
 
 #endif //USE_WL

@@ -16,8 +16,9 @@ class KeyboardEngine : public PARENT_TYPE
 {
     Q_OBJECT
     Q_DISABLE_COPY(KeyboardEngine)
-    Q_ENUMS(Mods)
+    Q_ENUMS(p_Mods)
 public:
+    enum p_Mods {Shift, Ctrl, Alt, AltGr, NumLock, CapsLock, Meta};
     KeyboardEngine(PARENT_TYPE *parent = 0);
     ~KeyboardEngine();
 

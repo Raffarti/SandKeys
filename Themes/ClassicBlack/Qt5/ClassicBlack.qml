@@ -659,11 +659,6 @@ Rectangle {
             transformOrigin: Item.TopLeft
             anchors.left: parent.left
             anchors.leftMargin: 0
-/*
-            Component.onCompleted: {
-                KE.KeyboardEngine.registerModifier(caps, KE.KeyboardEngine.CapsLock)
-
-            }*/
         }
 
         Btn {
@@ -1094,11 +1089,6 @@ Rectangle {
             anchors.leftMargin: 1
             anchors.verticalCenter: spce.verticalCenter
             keyCode: 108
-/*
-            Component.onCompleted: {
-                KE.KeyboardEngine.registerModifier(ralt, KE.KeyboardEngine.AltGr)
-
-            }*/
         }
 
         Btn {
@@ -1113,11 +1103,6 @@ Rectangle {
             anchors.leftMargin: 1
             anchors.verticalCenter: ralt.verticalCenter
             keyCode: 134
-/*
-            Component.onCompleted: {
-                KE.KeyboardEngine.registerModifier(rwin, KE.KeyboardEngine.Meta)
-
-            }*/
         }
 
         Btn {
@@ -1146,11 +1131,6 @@ Rectangle {
             anchors.leftMargin: 1
             anchors.verticalCenter: menu.verticalCenter
             transformOrigin: Item.Left
-/*
-            Component.onCompleted: {
-                KE.KeyboardEngine.registerModifier(rctl, KE.KeyboardEngine.Ctrl)
-
-            }*/
         }
 
         Btn {
@@ -1590,7 +1570,7 @@ Rectangle {
                 }
 
                 Component.onCompleted: {
-                    KE.KeyboardEngine.registerModifier(caps_lock,KE.CapsLock)
+                    KE.KeyboardEngine.registerModifier(caps_lock,KE.KeyboardEngine.CapsLock)
                     return "caps"
                 }
                 id: caps_lock

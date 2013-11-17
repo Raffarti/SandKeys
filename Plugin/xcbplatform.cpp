@@ -17,34 +17,25 @@ ModsState XcbPlatform::getState()
     ModsState modsState = QVector<char>(NUM_MODS);
     xcb_xkb_get_state_cookie_t ck = xcb_xkb_get_state_unchecked(conn, XCB_XKB_ID_USE_CORE_KBD);
     xcb_xkb_get_state_reply_t *status = xcb_xkb_get_state_reply(conn,ck,0);
-    if (status->latchedMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Latched;
-    else if (status->lockedMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Locked;
-    else if (status->baseMods & XCB_MOD_MASK_SHIFT) modsState[Shift] = Effective;
-    else modsState[Shift] = Unsetted;
-    if (status->latchedMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Latched;
-    else if (status->lockedMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Locked;
-    else if (status->baseMods & XCB_MOD_MASK_CONTROL) modsState[Ctrl] = Effective;
-    else modsState[Ctrl] = Unsetted;
-    if (status->latchedMods & XCB_MOD_MASK_1) modsState[Alt] = Latched;
-    else if (status->lockedMods & XCB_MOD_MASK_1) modsState[Alt] = Locked;
-    else if (status->baseMods & XCB_MOD_MASK_1) modsState[Alt] = Effective;
-    else modsState[Alt] = Unsetted;
-    if (status->latchedMods & XCB_MOD_MASK_2) modsState[NumLock] = Latched;
-    else if (status->lockedMods & XCB_MOD_MASK_2) modsState[NumLock] = Locked;
-    else if (status->baseMods & XCB_MOD_MASK_2) modsState[NumLock] = Effective;
-    else modsState[NumLock] = Unsetted;
-    if (status->latchedMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Latched;
-    else if (status->lockedMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Locked;
-    else if (status->baseMods & XCB_MOD_MASK_LOCK) modsState[CapsLock] = Effective;
-    else modsState[CapsLock] = Unsetted;
-    if (status->latchedMods & XCB_MOD_MASK_3) modsState[Meta] = Latched;
-    else if (status->lockedMods & XCB_MOD_MASK_3) modsState[Meta] = Locked;
-    else if (status->baseMods & XCB_MOD_MASK_3) modsState[Meta] = Effective;
-    else modsState[AltGr] = Unsetted;
-    if (status->latchedMods & XCB_MOD_MASK_5) modsState[AltGr] = Latched;
-    else if (status->lockedMods & XCB_MOD_MASK_5) modsState[AltGr] = Locked;
-    else if (status->baseMods & XCB_MOD_MASK_5) modsState[AltGr] = Effective;
-    else modsState[AltGr] = Unsetted;
+
+    Mods mods[] = {Shift, Ctrl, Alt, NumLock, CapsLock, Meta, AltGr};
+    const int sz = sizeof(mods) / sizeof(Mods);
+    int masks[sz] = {XCB_MOD_MASK_SHIFT, XCB_MOD_MASK_CONTROL, XCB_MOD_MASK_1,
+                  XCB_MOD_MASK_2,XCB_MOD_MASK_LOCK, XCB_MOD_MASK_3,XCB_MOD_MASK_4};
+
+    for (int i = 0; i < sz; i++) {
+        if (status->latchedMods & masks[i])
+            modsState[mods[i]] = Latched;
+        else if (status->lockedMods & masks[i])
+            modsState[mods[i]] = Locked;
+        else if (status->baseMods & masks[i])
+            modsState[mods[i]] = Effective;
+        else if (status->latchedGroup & masks[i])
+            modsState[mods[i]] = Latched;
+        else
+            modsState[mods[i]] = Unsetted;
+    }
+
     delete status;
     return modsState;
 }
@@ -61,12 +52,14 @@ void XcbPlatform::sendEvent(char keycode, bool press)
     xcb_get_modifier_mapping_cookie_t ckmm = xcb_get_modifier_mapping(conn);
     xcb_get_modifier_mapping_reply_t *mmap = xcb_get_modifier_mapping_reply(conn, ckmm,0);
     xcb_keycode_t *kmm = xcb_get_modifier_mapping_keycodes(mmap);
-    int mn = mmap->keycodes_per_modifier;
-    qDebug("%d", mmap->length);
-    for (int n = 0; n < mmap->length; n++)
-        for (int s = 0; s < mn; s++)
-            if (kmm[mn*n+s] == keycode) qDebug(" → MOD%d: %d\t←",n,kmm[mn*n+s]);
-            else qDebug("   MOD%d: %d",n,kmm[mn*n+s]);
+    int mn = xcb_get_modifier_mapping_keycodes_length(mmap);
+    int mn2 = mmap->keycodes_per_modifier;
+    qDebug("%d", mn2);
+    for (int n = 0; n < mn; n++){
+            if (kmm[n] == (u_int8_t)keycode) qDebug(" → MOD%d: %d\t←",n/mn2,kmm[n]);
+            else qDebug("   MOD%d: %d",n/mn2,kmm[n]);
+    }
+    qDebug("keycode: %d %d", (u_int8_t)keycode, keycode);
 
 }
 
@@ -129,6 +122,16 @@ bool XcbPlatform::isModifier(char keycode, Mods mod)
 
 QList<Mods> XcbPlatform::modList(char keycode)
 {
+
+    xcb_get_modifier_mapping_cookie_t ckmm = xcb_get_modifier_mapping(conn);
+    xcb_get_modifier_mapping_reply_t *mmap = xcb_get_modifier_mapping_reply(conn, ckmm,0);
+    xcb_keycode_t *kmm = xcb_get_modifier_mapping_keycodes(mmap);
+    int mn = mmap->keycodes_per_modifier;
+    qDebug("%d", mmap->length);
+    for (int n = 0; n < mmap->length; n++)
+        for (int s = 0; s < mn; s++)
+            if (kmm[mn*n+s] == keycode) qDebug(" → MOD%d: %d\t←",n,kmm[mn*n+s]);
+            else qDebug("   MOD%d: %d",n,kmm[mn*n+s]);
     return QList<Mods>();
 }
 
