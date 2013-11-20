@@ -86,6 +86,9 @@ QObject *KeyboardEngine::KeyboardEngine_singletontype_provider(QQmlEngine *engin
 #endif
 KeyboardEngine::~KeyboardEngine()
 {
+#ifndef USE_QT5
+    if (singleton != this) return;
+#endif
     platform->disconnect();
 }
 
