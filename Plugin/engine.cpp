@@ -103,8 +103,19 @@ void KeyboardEngine::keyPress(int keycode, bool press)
 #ifndef USE_QT5
     if (singleton != this) return singleton->keyPress(keycode, press);
 #endif
+    bool lock = false;
+    if (!press && !platform->canLatch()){
+        ModsState state = platform->getState();
+        QList<Mods> mods = platform->modList(keycode);
+        foreach (Mods m, mods)
+            if (state[m] == Locked) lock = true;
+
+    }
     platform->sendEvent(keycode, press);
-    if (press) platform->latchKey(keycode);
+    if (press && platform->canLatch()) platform->latchKey(keycode);
+    else if (press) platform->lockKey(keycode);
+    else if (lock) platform->lockKey(keycode);
+
 }
 
 QString KeyboardEngine::keySym(int keycode)
@@ -190,7 +201,7 @@ void KeyboardEngine::reset()
 
 void KeyboardEngine::modEventRecived()
 {
-    QVector<char> mstatus;
+    ModsState mstatus;
 
     mstatus = platform->getState();
 

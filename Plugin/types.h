@@ -7,6 +7,6 @@
 enum ModState {Unsetted, Effective, Latched, Locked};
 enum Mods {Shift, Ctrl, Alt, AltGr, NumLock, CapsLock, Meta};
 
-typedef QVector<char> ModsState;
+typedef QVector<ModState> ModsState;
 
 #endif // TYPES_H

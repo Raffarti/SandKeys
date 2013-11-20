@@ -26,6 +26,8 @@ public:
     long keysym(char keycode);
     bool isModifier(char keycode, Mods mod);
     QList<Mods> modList(char keycode);
+    virtual bool canLatch() const;
+    virtual bool hasEffectiveModifiers() const;
 
 
 private:

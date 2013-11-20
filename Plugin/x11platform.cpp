@@ -187,4 +187,14 @@ QList<Mods> X11Platform::modList(char keycode)
     return ret;
 }
 
+bool X11Platform::canLatch() const
+{
+    return true;
+}
+
+bool X11Platform::hasEffectiveModifiers() const
+{
+    return true;
+}
+
 #endif USE_X11

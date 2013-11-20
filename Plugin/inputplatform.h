@@ -20,6 +20,8 @@ public:
     virtual long keysym(char keycode)=0;
     virtual bool isModifier(char keycode, Mods mod)=0;
     virtual QList<Mods> modList(char keycode)=0;
+    virtual bool canLatch() const = 0;
+    virtual bool hasEffectiveModifiers() const = 0;
     virtual QString keysymToString(long keysym){
         return QString::number(keysym);
     }

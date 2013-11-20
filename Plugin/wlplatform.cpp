@@ -8,6 +8,7 @@ WLPlatform::WLPlatform()
 void WLPlatform::connect()
 {
     dpy = wl_display_connect(0);
+    wl_seat_get_keyboard(0);
 }
 
 ModsState WLPlatform::getState()
