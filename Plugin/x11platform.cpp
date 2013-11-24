@@ -114,10 +114,10 @@ void X11Platform::lockKey(char keycode)
     XkbStatePtr status = new XkbStateRec;
     XkbGetState(dpy, XkbUseCoreKbd, status);
     KeySym keysym;
-    XkbLookupKeySym(dpy, keycode, status->base_mods|status->latched_mods|status->locked_mods, 0, &keysym);
+    XkbLookupKeySym(dpy, keycode, status->base_mods|status->locked_mods|status->locked_mods, 0, &keysym);
     int mods = XkbKeysymToModifiers(dpy, keysym);
     if (!mods)return;
-    XkbLockModifiers(dpy, XkbUseCoreKbd, status->latched_mods | mods, (mods ^ status->latched_mods) & ~status->locked_mods);
+    XkbLockModifiers(dpy, XkbUseCoreKbd, status->locked_mods | mods, mods ^ status->locked_mods);
     XFlush(dpy);
 }
 

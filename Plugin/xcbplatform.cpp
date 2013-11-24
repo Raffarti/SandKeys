@@ -83,7 +83,7 @@ void XcbPlatform::latchKey(char keycode)
     int stack = 0;
     for (int n = 0; n < mn; n++)
         if (kmm[n] == (u_int8_t)keycode) stack = stack | masks[n/mn2];
-    xcb_void_cookie_t ck = xcb_xkb_latch_lock_state(conn, XCB_XKB_ID_USE_CORE_KBD, status->lockedMods | stack, (stack ^ status->lockedMods) & ~status->lockedMods, 0, 0, 0, 0, 0); //parameter missing?
+    xcb_void_cookie_t ck = xcb_xkb_latch_lock_state(conn, XCB_XKB_ID_USE_CORE_KBD, status->lockedMods | stack, stack ^ status->lockedMods(), 0, 0, 0, 0, 0); //parameter missing?
     xcb_request_check(conn, ck);*/
     lockKey(keycode);
 }
@@ -103,7 +103,7 @@ void XcbPlatform::lockKey(char keycode)
     int stack = 0;
     for (int n = 0; n < mn; n++)
         if (kmm[n] == (u_int8_t)keycode) stack = stack | masks[n/mn2];
-    xcb_void_cookie_t ck = xcb_xkb_latch_lock_state(conn, XCB_XKB_ID_USE_CORE_KBD, status->lockedMods | stack, (stack ^ status->lockedMods) & ~status->lockedMods, 0, 0, 0, 0, 0);
+    xcb_void_cookie_t ck = xcb_xkb_latch_lock_state(conn, XCB_XKB_ID_USE_CORE_KBD, status->lockedMods | stack, stack ^ status->lockedMods, 0, 0, 0, 0, 0);
     xcb_request_check(conn, ck);
 }
 
@@ -125,9 +125,8 @@ long XcbPlatform::keysym(char keycode)
     xcb_xkb_get_state_cookie_t ck = xcb_xkb_get_state_unchecked(conn, XCB_XKB_ID_USE_CORE_KBD);
     xcb_xkb_get_state_reply_t *status = xcb_xkb_get_state_reply(conn,ck,0);
 
-    xcb_key_symbols_t *ptr = xcb_key_symbols_alloc(conn);
-    short first = 8;
-    short count = 255 - 8;
+    xcb_keycode_t first = xcb_get_setup(conn)->min_keycode;
+    xcb_keycode_t count = xcb_get_setup(conn)->max_keycode - first +1;
     xcb_get_keyboard_mapping_cookie_t ckkm = xcb_get_keyboard_mapping(conn, first, count);
     xcb_get_keyboard_mapping_reply_t *reply = xcb_get_keyboard_mapping_reply(conn, ckkm, 0);
     xcb_keysym_t *map_ks = xcb_get_keyboard_mapping_keysyms(reply);
@@ -139,6 +138,7 @@ long XcbPlatform::keysym(char keycode)
 
     short n = reply->keysyms_per_keycode;
     return map_ks[(keycode - first)*n];
+    //return xcb_key_symbols_get_keysym(syms, keycode, 7);
 }
 
 bool XcbPlatform::isModifier(char keycode, Mods mod)
@@ -157,6 +157,7 @@ QList<Mods> XcbPlatform::modList(char keycode)
     Mods mods[] = {Shift, CapsLock, Ctrl, Alt, NumLock, (Mods) -1, Meta, AltGr};
     for (int n = 0; n < mn; n++)
         if (kmm[n] == (u_int8_t)keycode) ret.append(mods[n/mn2]);
+
     return ret;
 }
 
