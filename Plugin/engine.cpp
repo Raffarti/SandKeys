@@ -163,6 +163,17 @@ void KeyboardEngine::registerKey(ITEM_TYPE *item)
     keys.append(item);
 }
 
+void KeyboardEngine::registerKeyAuto(ITEM_TYPE *item)
+{
+    char keycode;
+    keycode = item->property("keyCode").toInt();
+
+    registerKey(item);
+
+    foreach (Mods mod, platform->modList(keycode))
+        registerModifier(item,mod);
+}
+
 void KeyboardEngine::initialize(ITEM_TYPE *item)
 {
 #ifndef USE_QT5
@@ -176,15 +187,9 @@ void KeyboardEngine::initializeRec(ITEM_TYPE *item)
 #ifndef USE_QT5
     if (singleton != this)return singleton->initializeRec(item);
 #endif
-    if (item->metaObject()->indexOfProperty("keyCode") != -1){
-        char keycode;
-        keycode = item->property("keyCode").toInt();
+    if (item->metaObject()->indexOfProperty("keyCode") != -1)
+        registerKeyAuto(item);
 
-        registerKey(item);
-
-        foreach (Mods mod, platform->modList(keycode))
-            registerModifier(item,mod);
-    }
     foreach(QObject *obj, item->children()){
         ITEM_TYPE *item = dynamic_cast<ITEM_TYPE *>(obj);
         if (item)
