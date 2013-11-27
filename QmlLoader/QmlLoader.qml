@@ -6,7 +6,7 @@ ApplicationWindow {
     id: mainwindow
     //X11BypassWindowManagerHint
     opacity: 0.75
-    flags: "WindowDoesNotAcceptFocus|WindowStaysOnTopHint" //QtCreator report an invalid error there, just ignore it
+    flags: "WindowDoesNotAcceptFocus|WindowStaysOnTopHint|X11BypassWindowManagerHint" //QtCreator report an invalid error there, just ignore it
    // width: keyboard1.implicitWidth
   //  height: keyboard1.implicitHeight
 
@@ -21,6 +21,24 @@ ApplicationWindow {
         currentKeyboard = keyboard
     }
     Rectangle {
+        MouseArea{
+            anchors.fill: parent
+            z: -1
+            property variant previousPosition
+            onPressed: {
+                previousPosition = Qt.point(mouseX, mouseY)
+
+            }
+            onPositionChanged: {
+                if (pressedButtons == Qt.LeftButton) {
+                    var dx = mouseX - previousPosition.x
+                    var dy = mouseY - previousPosition.y
+                    mainwindow.x = mainwindow.x + dx
+                    mainwindow.y = mainwindow.y + dy
+                }
+            }
+        }
+
         id: keyboard1
         anchors.topMargin: 0
         anchors.top: combo_box1.bottom
