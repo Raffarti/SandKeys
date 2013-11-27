@@ -14,6 +14,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.setWindowFlags(Qt::WindowStaysOnTopHint|Qt::X11BypassWindowManagerHint);
     QDeclarativeContext *context = viewer.rootContext();
     context->setContextProperty("viewerWidget", &viewer);
+    viewer.setResizeMode(QDeclarativeView::SizeRootObjectToView);
     viewer.showExpanded();
     return app->exec();
 }
