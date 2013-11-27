@@ -50,8 +50,13 @@ ApplicationWindow {
 
     ComboBox {
         id: combo_box1
-        width: 320
-        anchors.right: parent.right
+        x: 0
+        y: 0
+        height: 23
+        anchors.right: button1.left
+        anchors.rightMargin: 0
+        anchors.leftMargin: 0
+        anchors.topMargin: 0
         anchors.left: parent.left
         anchors.top: parent.top
 
@@ -69,5 +74,15 @@ ApplicationWindow {
             case 1: setKeyboard("/usr/lib64/qt5/qml/sandkeys/theme/LightWeight/Keyboard.qml"); break
             }
         }
+    }
+
+    Button {
+        id: close_btn
+        x: 240
+        y: 0
+        text: "Close"
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        onClicked: mainwindow.close()
     }
 }
