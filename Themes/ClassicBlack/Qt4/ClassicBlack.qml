@@ -1626,11 +1626,11 @@ Rectangle {
                 color: "#ffffff"
                 text: qsTr("Num<br>Lock")
                 anchors.left: parent.left
-                anchors.leftMargin: 1
+                anchors.leftMargin: 1 * implicitScale
                 anchors.top: parent.top
-                anchors.topMargin: 3
+                anchors.topMargin: 3 * implicitScale
                 transformOrigin: Item.TopLeft
-                font.pixelSize: 5
+                font.pixelSize: 5 * implicitScale
             }
 
             Text {

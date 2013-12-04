@@ -12,6 +12,7 @@ Item{
         ClassicBlackKeyboard {
             id: kbd
             anchors.top:close_btn.bottom
+            opacity: 0.5
         }
         Rectangle {
             id: close_btn
@@ -59,6 +60,13 @@ Item{
                 }
             }
         }
+        Rectangle{
+	    anchors.top: parent.top
+	    anchors.bottom: kbd.top
+	    anchors.right: minimize_btn.left
+	    anchors.left: parent.left
+	    color: "#80808080"
+	}
         MouseArea{
             anchors.fill: parent
             z: -1
@@ -78,7 +86,7 @@ Item{
         }
     }
     Rectangle{
-        color: kbd.color
+        color: "#80808080"
         id: icon
         width: 50
         height: 50
