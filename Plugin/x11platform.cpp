@@ -39,7 +39,7 @@ ModsState X11Platform::getState()
     if (status->latched_mods & Mod4Mask) modsState[Meta] = Latched;
     else if (status->locked_mods & Mod4Mask) modsState[Meta] = Locked;
     else if (status->base_mods & Mod4Mask) modsState[Meta] = Effective;
-    else modsState[AltGr] = Unsetted;
+    else modsState[Meta] = Unsetted;
     if (status->latched_mods & Mod5Mask) modsState[AltGr] = Latched;
     else if (status->locked_mods & Mod5Mask) modsState[AltGr] = Locked;
     else if (status->base_mods & Mod5Mask) modsState[AltGr] = Effective;

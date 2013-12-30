@@ -103,6 +103,7 @@ void KeyboardEngine::refreshLayout()
 
 void KeyboardEngine::keyPress(int keycode, bool press)
 {
+
 #ifndef USE_QT5
     if (singleton != this) return singleton->keyPress(keycode, press);
 #endif

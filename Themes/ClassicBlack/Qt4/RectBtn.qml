@@ -3,9 +3,12 @@ import sandkeys.plugin 1.0 as KE
 
 Rectangle {
     property real implicitScale: 2
+    property variant lastPress;
+    property variant lastAnim;
     KE.KeyboardEngine {
         id: ke
     }
+    property bool animLock;
     id: background
     width: 18 * implicitScale
     height: 18 * implicitScale
@@ -30,11 +33,14 @@ Rectangle {
 
             onPressed: {
                 background.state = "Pressed"
+                lastPress = new Date().getTime();
                 ke.keyPress(keyCode, 1)
             }
             onReleased: {
                 background.state = "Base State"
+                var time = new Date().getTime();
                 ke.keyPress(keyCode, 0)
+                if (time - lastPress < 100 && !animLock) resetAnim.restart();
             }
             Rectangle {
                 function textSize(text,width,height){
@@ -78,10 +84,18 @@ Rectangle {
                 }
             }
         }
+
         ColorAnimation on color{
             id: resetAnim
             running: false
-            to: "#3c3c3c";
+            from: "white"
+            to: "#3c3c3c"
+            duration: 750
+        }
+        ColorAnimation on color{
+            id: fastResetAnim
+            running: false
+            to: "#3c3c3c"
             duration: 75
         }
 
@@ -90,18 +104,19 @@ Rectangle {
             running: false
             to: "yellow";
             duration: 75
+            alwaysRunToEnd: true;
         }
         ColorAnimation on color{
             id: lockAnim
             running: false
             to: "green";
-            duration: 50
+            duration: 75
         }
         ColorAnimation on color{
             id: effectiveAnim
             running: false
             to: "red";
-            duration: 50
+            duration: 75
         }
     }
     states: [
@@ -121,16 +136,31 @@ Rectangle {
     ]
 
     function activate(){
+        animLock = true
+        lastAnim = new Date().getTime()
+        resetAnim.stop()
         effectiveAnim.start();
     }
 
     function reset(){
-        resetAnim.start()
+        animLock = false
+        var time = new Date().getTime()
+        console.debug(time - lastAnim)
+        if (time - lastAnim < 200)
+            fastResetAnim.restart()
+        else
+            resetAnim.restart()
     }
     function lock(){
+        animLock = true
+        lastAnim = new Date().getTime();
+        resetAnim.stop()
         lockAnim.start()
     }
     function latch(){
+        animLock = true
+        lastAnim = new Date().getTime();
+        resetAnim.stop()
         latchAnim.start()
     }
     function refresh(){
